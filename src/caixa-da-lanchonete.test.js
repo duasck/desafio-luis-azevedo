@@ -48,4 +48,15 @@ describe('CaixaDaLanchonete', () => {
         ['queijo com outro item', 'debito', 'Item extra não pode ser pedido sem o principal', ['cafe,1', 'queijo,1']],
     ])('compra %p em %p deve resultar em %p', (_, formaDePagamento, resultadoEsperado, itens) =>
         validaTeste(formaDePagamento, resultadoEsperado, itens));
+
+    // Teste adicionados
+    test.each([
+        ['com forma de pagamento inválida', 'especie', 'Forma de pagamento inválida!', ['cafe, 1']],
+        ['compra de múltiplas quantidades com valor total negativo', 'dinheiro', 'Quantidade inválida!', ['cafe,-4', 'sanduiche,-3']],
+        ['compra de múltiplas quantidades com valor total zero', 'credito', 'Quantidade inválida!', ['cafe,0', 'sanduiche,0']],
+        ['compra de item extra e principal em sequência', 'debito', 'R$ 4,50', ['chantily,1', 'cafe,1']],
+        ['compra de itens com nomes semelhantes', 'dinheiro', 'Item inválido!', ['cafe,2', 'cafezinho,3']],
+    ])('compra %p em %p deve resultar em %p', (_, formaDePagamento, resultadoEsperado, itens) =>
+        validaTeste(formaDePagamento, resultadoEsperado, itens));
+
 });
